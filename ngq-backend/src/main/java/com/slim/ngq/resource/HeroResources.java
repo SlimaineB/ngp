@@ -1,10 +1,6 @@
 package com.slim.ngq.resource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -18,52 +14,52 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.slim.ngq.model.Hero;
-import com.slim.ngq.service.HeroesService;
+import com.slim.ngq.service.HeroService;
 
 @Path("/api/heroes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class HeroesResources {
+public class HeroResources {
 
 	@Inject
-	private HeroesService service;
+	HeroService heroService;
 
-	public HeroesResources() {
+	public HeroResources() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Hero> getHeroes() {
-		return service.findAllHeroes();
+		return heroService.findAllHeroes();
 	}
 
 	@GET
 	@Path("/name={term}")
 	public List<Hero> searchHeroes(@PathParam(value = "term") String term) {
-		return service.findHeroByMatchingName(term);
+		return heroService.findHeroByMatchingName(term);
 	}
 
 	@GET
 	@Path("/{id}")
-	public Hero getHero(@PathParam(value = "id") Integer id) {
-		return service.findHeroById(id);
+	public Hero getHero(@PathParam(value = "id") Long id) {
+		return heroService.findHeroById(id);
 	}
 
 	@POST
 	public Hero addHero(Hero hero) {
-		return service.addHero(hero);
+		return heroService.addHero(hero);
 	}
 
 	@DELETE
 	@Path("/{id}")
-	public Hero deleteHero(@PathParam("id") Integer id) {
-		return service.deleteHeroById(id);
+	public Hero deleteHero(@PathParam("id") Long id) {
+		return heroService.deleteHeroById(id);
 	}
 
 	@PUT
 	public Hero updateHero(Hero hero) {
-		return service.updateHero(hero);
+		return heroService.updateHero(hero);
 	}
 
 }

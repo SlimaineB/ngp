@@ -7,7 +7,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;;
 
 @QuarkusTest
-public class HeroesResourceTest {
+public class HeroResourceTest {
 
     @Test
     public void testGetHeroEndpoint() {

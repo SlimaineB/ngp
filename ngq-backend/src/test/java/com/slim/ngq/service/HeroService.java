@@ -3,22 +3,24 @@ package com.slim.ngq.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.PathParam;
+import javax.inject.Inject;
 
 import com.slim.ngq.model.Hero;
+import com.slim.ngq.repository.HeroRepository;
 
 @ApplicationScoped
-public class HeroesService {
+public class HeroService {
 
-	private static AtomicInteger hId = new AtomicInteger(0);
+	private static AtomicLong hId = new AtomicLong(0);
 	private static List<Hero> HEROES = new ArrayList<Hero>(
 			Arrays.asList(new Hero(hId.incrementAndGet(), "Slimaine"), new Hero(hId.incrementAndGet(), "Yasmine")));
+	
 
-	public HeroesService() {
+	public HeroService() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -31,7 +33,7 @@ public class HeroesService {
 	}
 
 	public Hero findHeroById(Integer id) {
-		return HEROES.stream().filter(e -> e.getId().equals(id)).reduce((a, b) -> {
+		return HEROES.stream().filter(e -> e.id.equals(id)).reduce((a, b) -> {
 			throw new IllegalStateException("Multiple users find: " + a + ", " + b);
 		}).get();
 	}
@@ -39,25 +41,25 @@ public class HeroesService {
 
 	public Hero addHero(Hero hero) {
 		
-		hero.setId(hId.incrementAndGet());
+		hero.id = hId.incrementAndGet();
 		HEROES.add(hero);
 		return hero;
 	}
 	
 	public Hero deleteHeroById( Integer id) {
 		
-		Hero heroToDelete = HEROES.stream().filter(e -> e.getId().equals(id)).reduce((a, b) -> {
+		Hero heroToDelete = HEROES.stream().filter(e -> e.id.equals(id)).reduce((a, b) -> {
 			throw new IllegalStateException("Multiple users find: " + a + ", " + b);
 		}).get();
 		
-		HEROES.removeIf(e -> e.getId().equals(heroToDelete.getId()));
+		HEROES.removeIf(e -> e.id.equals(heroToDelete.id));
 		return heroToDelete;
 	}
 		
 	
 
 	public Hero updateHero(Hero hero) {
-		Hero heroToUpdate = HEROES.stream().filter(e -> e.getId().equals(hero.getId())).reduce((a, b) -> {
+		Hero heroToUpdate = HEROES.stream().filter(e -> e.id.equals(hero.id)).reduce((a, b) -> {
 			throw new IllegalStateException("Multiple users find: " + a + ", " + b);
 		}).get();
 		

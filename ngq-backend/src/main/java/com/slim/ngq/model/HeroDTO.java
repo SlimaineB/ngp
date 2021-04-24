@@ -1,31 +1,33 @@
 package com.slim.ngq.model;
 
-import javax.persistence.Entity;
-
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-@Entity
-public class Hero extends PanacheEntity{
+public class HeroDTO extends PanacheEntity{
 
-	
+	Integer id;
 	String name;
 	
-	public Hero() {
+	public HeroDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
 
-	public Hero(String name) {
-		super();
-		this.name = name;
-	}
-
-	public Hero(Long id, String name) {
+	public HeroDTO(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
+
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
