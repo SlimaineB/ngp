@@ -1,7 +1,25 @@
 <h1>{{title}}</h1>
-<nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/heroes">Heroes</a>
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
+  <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a class="nav-item nav-link" routerLink="/dashboard">Dashboard</a>
+      <a class="nav-item nav-link" routerLink="/heroes">Heroes</a>
+      <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+      <a class="nav-item nav-link" (click)="logout()">Logout</a>
+  </div>
 </nav>
-<router-outlet></router-outlet>
-<app-messages></app-messages>
+
+<!-- main app container -->
+<div class="app-container" [ngClass]="{ 'bg-light': user }">
+  <alert></alert>
+  <router-outlet></router-outlet>
+  <app-messages></app-messages>
+</div>
+
+<!-- credits -->
+<div class="text-center mt-4">
+  <p>
+      <a href="https://jasonwatmore.com" target="_top">https://slimaineb.fr</a>
+  </p>
+</div>
