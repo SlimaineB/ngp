@@ -16,10 +16,6 @@ import io.smallrye.jwt.build.JwtClaimsBuilder;
 
 public class JwtTokenUtils {
 
-	public JwtTokenUtils() {
-		// TODO Auto-generated constructor stub
-	}
-
 	
 	public static String generateToken(String username, Set<Role> roles, Long duration, String issuer) throws Exception {
 		String privateKeyLocation = "/META-INF/resources/privatekey.pem";
