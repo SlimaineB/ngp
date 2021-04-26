@@ -67,7 +67,9 @@ public class AccountResource {
 	public User login(AuthRequest authRequest) throws Exception {
 		
 		User user = accountService.findUserByUsername(authRequest.getUsername());
-		user.setToken(JwtTokenUtils.generateToken(user.getUsername(), null, 3600L, "https://example.com/issuer"));
+		if(user.getUsername().equals(authRequest.getPassword())) {
+			user.setToken(JwtTokenUtils.generateToken(user.getUsername(), null, 3600L, "https://example.com/issuer"));
+		}
 		return user;
 	}
 
