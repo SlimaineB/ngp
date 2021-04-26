@@ -11,7 +11,9 @@ import javax.transaction.Transactional;
 import org.jboss.logging.Logger;
 
 import com.slim.ngq.model.Hero;
+import com.slim.ngq.model.User;
 import com.slim.ngq.repository.HeroRepository;
+import com.slim.ngq.repository.UserRepository;
 
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
@@ -22,6 +24,9 @@ public class AppLifecycleBean {
 	
 	@Inject
 	HeroRepository heroRepository;
+	
+	@Inject
+	UserRepository userRepository;
 
     private static final Logger LOGGER = Logger.getLogger("ListenerBean");
 
@@ -32,6 +37,9 @@ public class AppLifecycleBean {
         		new Hero("Yasmine"),
         		new Hero("Nail"),
         		new Hero("Jean")));
+        
+        userRepository.persist(new User("slim",  "minouche", "slim","slim", null));
+        
     }
 
     void onStop(@Observes ShutdownEvent ev) {               

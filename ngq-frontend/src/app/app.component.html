@@ -1,10 +1,10 @@
 <h1>{{title}}</h1>
 <!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
+<nav class="navbar navbar-expand  bg-light" *ngIf="user">
   <div class="navbar-nav">
       <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-      <a class="nav-item nav-link" routerLink="/dashboard">Dashboard</a>
-      <a class="nav-item nav-link" routerLink="/heroes">Heroes</a>
+      <a class="nav-item nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a class="nav-item nav-link" routerLink="/heroes" routerLinkActive="active">Heroes</a>
       <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
       <a class="nav-item nav-link" (click)="logout()">Logout</a>
   </div>
@@ -20,6 +20,6 @@
 <!-- credits -->
 <div class="text-center mt-4">
   <p>
-      <a href="https://jasonwatmore.com" target="_top">https://slimaineb.fr</a>
+      <a href="https://slimaineb.fr" target="_top">Slimaine BENSADOUN</a>
   </p>
 </div>

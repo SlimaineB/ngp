@@ -1,21 +1,44 @@
-<h2>My Heroes</h2>
+<div class="p-4">
+  <div class="container">
+    <h2>My Heroes</h2>
 
-<div>
-  <label id="new-hero">Hero name: </label>
-  <input for="new-hero" #heroName />
+    <div>
+      <label id="new-hero">Hero name: </label>
+      <input for="new-hero" #heroName />
 
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button class="add-button" (click)="add(heroName.value); heroName.value=''">
-    Add hero
-  </button>
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button class="btn btn-sm btn-success mb-2" (click)="add(heroName.value); heroName.value=''">
+        Add hero
+      </button>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th style="width: 30%">Id</th>
+              <th style="width: 30%">Name</th>
+              <th style="width: 10%"></th>
+              <th style="width: 10%"></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let hero of heroes">
+              <td>{{hero.id}}</td>
+              <td>{{hero.name}}</td>
+              <td style="white-space: nowrap">
+                  <a routerLink="/detail/{{hero.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>  
+              </td>
+              <td>
+                <button (click)="delete(hero)" class="btn btn-sm btn-danger" >Delete</button>
+              </td>
+          </tr>
+          <tr *ngIf="!heroes">
+              <td colspan="4" class="text-center">
+                  <span class="spinner-border spinner-border-lg align-center"></span>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
 </div>
-
-<ul class="heroes">
-  <li *ngFor="let hero of heroes">
-    <a routerLink="/detail/{{hero.id}}">
-      <span class="badge">{{hero.id}}</span> {{hero.name}}
-    </a>
-    <button class="delete" title="delete hero"
-      (click)="delete(hero)">x</button>
-  </li>
-</ul>
+</div>

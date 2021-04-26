@@ -2,6 +2,7 @@ package com.slim.ngq.resource;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -15,10 +16,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.slim.ngq.model.Hero;
 import com.slim.ngq.service.HeroService;
-
 @Path("/api/heroes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class HeroResources {
 
 	@Inject

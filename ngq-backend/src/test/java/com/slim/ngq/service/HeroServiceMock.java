@@ -7,20 +7,18 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 import com.slim.ngq.model.Hero;
-import com.slim.ngq.repository.HeroRepository;
 
-@ApplicationScoped
-public class HeroService {
+//@ApplicationScoped
+public class HeroServiceMock {
 
-	private static AtomicLong hId = new AtomicLong(0);
+	private static AtomicLong hId = new AtomicLong(0L);
 	private static List<Hero> HEROES = new ArrayList<Hero>(
 			Arrays.asList(new Hero(hId.incrementAndGet(), "Slimaine"), new Hero(hId.incrementAndGet(), "Yasmine")));
 	
 
-	public HeroService() {
+	public HeroServiceMock() {
 		// TODO Auto-generated constructor stub
 	}
 
