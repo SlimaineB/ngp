@@ -13,7 +13,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" routerLink="/heroes" routerLinkActive="active">List</a>
-          <a class="dropdown-item" href="#">Add</a>
+          <a class="dropdown-item" href="#">New</a>
         </div>
       </li>            
       <li class="nav-item dropdown">
@@ -21,9 +21,9 @@
           Admin
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/users" routerLinkActive="active">Users</a>
+          <a class="dropdown-item" routerLink="/users" routerLinkActive="active">List Users...</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Todo</a>
+          <a class="dropdown-item" routerLink="/add-user" routerLinkActive="active">Add User</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -36,19 +36,22 @@
       </li> 
     </ul>
     <form class="form-inline my-2 my-lg-0">
+      
+      <button class="btn  my-2 my-sm-0" type="submit">{{user.firstName}}</button>
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
 
-<!-- main app container -->
-<div class="app-container" [ngClass]="{ 'bg-light': user }">
+
+<div class="p-4">
   <alert></alert>
-  <router-outlet></router-outlet>
+  <div class="container">
+      <router-outlet></router-outlet>
+  </div>
   <!--<app-messages></app-messages>-->
 </div>
-
 <!-- credits -->
 <div class="text-center mt-4 fixed-bottom">
   <p>
