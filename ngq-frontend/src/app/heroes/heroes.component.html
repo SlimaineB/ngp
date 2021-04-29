@@ -1,21 +1,19 @@
-<div class="p-4">
+
   <div class="container">
     <h2>My Heroes</h2>
+    <form class="form-inline">
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="input" class="form-control" #heroName placeholder="Hero Name">
+      </div>
+    
+      <button class="btn btn-primary mb-2" (click)="add(heroName.value); heroName.value=''">Add</button>
+    </form>  
 
-    <div>
-      <label id="new-hero">Hero name: </label>
-      <input for="new-hero" #heroName />
-
-      <!-- (click) passes input value to add() and then clears the input -->
-      <button class="btn btn-sm btn-success mb-2" (click)="add(heroName.value); heroName.value=''">
-        Add hero
-      </button>
-    </div>
-
+  
     <table class="table table-striped">
       <thead>
           <tr>
-              <th style="width: 30%">Id</th>
+              <th style="width: 10%">Id</th>
               <th style="width: 30%">Name</th>
               <th style="width: 10%"></th>
               <th style="width: 10%"></th>
@@ -37,8 +35,7 @@
                   <span class="spinner-border spinner-border-lg align-center"></span>
               </td>
           </tr>
-      </tbody>
-  </table>
+        </tbody>
+    </table>
 
-</div>
-</div>
+  </div>

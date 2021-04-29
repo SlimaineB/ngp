@@ -1,1 +1,11 @@
-﻿<h1>Hi {{user.firstName}}!</h1>
+﻿<div class="container">
+<h1>Hi {{user.firstName}}. Today Top Heroes are : </h1>
+<div class="heroes-menu">
+  <a *ngFor="let hero of heroes"
+      routerLink="/detail/{{hero.id}}">
+      {{hero.name}}
+  </a>
+</div>
+
+<app-hero-search></app-hero-search>
+</div>
