@@ -33,7 +33,7 @@ public class HeroService {
 	}
 	
 	public List<Hero> findHeroByMatchingName(String term) {
-		return HEROES.stream().filter(e -> e.getName().contains(term)).collect(Collectors.toList());
+		return heroRepository.findByNameLike(term);
 	}
 
 	public Hero findHeroById(Long id) {

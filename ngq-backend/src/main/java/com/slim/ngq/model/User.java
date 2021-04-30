@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
-public class User extends PanacheEntity{
+public class User extends PanacheEntity {
 
 	private String username;
 	private String password;
@@ -13,12 +13,11 @@ public class User extends PanacheEntity{
 	private String lastName;
 	private String token;
 
+
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 	public User(String username, String password, String firstName, String lastName, String token) {
 		super();
 		this.username = username;
@@ -27,8 +26,6 @@ public class User extends PanacheEntity{
 		this.lastName = lastName;
 		this.token = token;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -77,7 +74,5 @@ public class User extends PanacheEntity{
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
-	
 
 }

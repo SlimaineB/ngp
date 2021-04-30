@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.management.relation.Role;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -23,6 +22,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import com.slim.ngq.model.AuthRequest;
 import com.slim.ngq.model.User;
 import com.slim.ngq.service.AccountService;
+import static com.slim.ngq.utils.AuthoritiesConstants.*;
 import com.slim.ngq.utils.JwtTokenUtils;
 
 @Path("/api/users")
@@ -66,11 +66,13 @@ public class AccountResource {
 	@Path("/authenticate")
 	public User login(AuthRequest authRequest) throws Exception {
 		
+		User authentifiedUser = null;
 		User user = accountService.findUserByUsername(authRequest.getUsername());
-		if(user.getUsername().equals(authRequest.getPassword())) {
-			user.setToken(JwtTokenUtils.generateToken(user.getUsername(), null, 3600L, "https://example.com/issuer"));
+		if(user!=null && user.getPassword().equals(authRequest.getPassword())) {
+			user.setToken(JwtTokenUtils.generateToken(user.getUsername(), new HashSet<String>(Arrays.asList(USER)), 3600L, issuer));
+			authentifiedUser = user;
 		}
-		return user;
+		return authentifiedUser;
 	}
 
 	@DELETE
