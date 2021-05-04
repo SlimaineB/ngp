@@ -38,8 +38,8 @@ public class AppLifecycleBean {
         		new Hero("Nail"),
         		new Hero("Jean")));
         
-        userRepository.persist(new User("admin",  "Administrator", "Administrator","admin", null));
-        userRepository.persist(new User("user",  "User", "User","user", null));
+        userRepository.persist(new User("admin",  "admin", "Administrator","Administrator", null));
+        userRepository.persist(new User("user",  "admin", "User","User", null));
         
     }
 
