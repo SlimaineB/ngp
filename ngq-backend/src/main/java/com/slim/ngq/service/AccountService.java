@@ -15,6 +15,8 @@ import com.slim.ngq.model.User;
 import com.slim.ngq.repository.HeroRepository;
 import com.slim.ngq.repository.UserRepository;
 
+import io.quarkus.elytron.security.common.BcryptUtil;
+
 @ApplicationScoped
 @Transactional
 public class AccountService {
@@ -51,7 +53,7 @@ public class AccountService {
 	}
 
 	public User addUser(User user) {
-		// TODO Auto-generated method stub
+		user.setPassword(BcryptUtil.bcryptHash(user.getPassword()));
 		userRepository.persist(user);
 		return user;
 	}

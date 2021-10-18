@@ -1,5 +1,7 @@
 package com.slim.ngq.resource;
 
+import static com.slim.ngq.utils.AuthoritiesConstants.USER;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -18,12 +20,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 
 import com.slim.ngq.model.AuthRequest;
 import com.slim.ngq.model.User;
 import com.slim.ngq.service.AccountService;
-import static com.slim.ngq.utils.AuthoritiesConstants.*;
 import com.slim.ngq.utils.JwtTokenUtils;
+
+import io.quarkus.elytron.security.common.BcryptUtil;
 
 @Path("/api/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,10 +35,12 @@ import com.slim.ngq.utils.JwtTokenUtils;
 @RequestScoped
 public class AccountResource {
 
+	private static final Logger LOGGER = Logger.getLogger(AccountResource.class);
+
 	@Inject
 	AccountService accountService;
-	
-	@ConfigProperty(name = "mp.jwt.verify.issuer") 
+
+	@ConfigProperty(name = "mp.jwt.verify.issuer")
 	public String issuer;
 
 	public AccountResource() {
@@ -54,21 +60,24 @@ public class AccountResource {
 		return accountService.findUserById(id);
 	}
 
-
 	@POST
 	@Path("/register")
 	public User register(User user) throws Exception {
 		accountService.addUser(user);
 		return user;
 	}
-	
+
 	@POST
 	@Path("/authenticate")
 	public User login(AuthRequest authRequest) throws Exception {
-		
+
 		User authentifiedUser = null;
 		User user = accountService.findUserByUsername(authRequest.getUsername());
-		if(user!=null && user.getPassword().equals(authRequest.getPassword())) {
+
+		LOGGER.info("Registered Password :" + BcryptUtil.bcryptHash(user.getPassword()));
+		LOGGER.info("Entered password :" + BcryptUtil.bcryptHash(user.getPassword()));
+
+		if (user != null && JwtTokenUtils.verifyPassword(authRequest.getPassword(),user.getPassword())) {
 			user.setToken(JwtTokenUtils.generateToken(user.getUsername(), new HashSet<String>(Arrays.asList(USER)), 3600L, issuer));
 			authentifiedUser = user;
 		}
@@ -85,5 +94,7 @@ public class AccountResource {
 	public User updateUser(User user) {
 		return accountService.updateUser(user);
 	}
+
+
 
 }

@@ -15,7 +15,6 @@ public class Main {
 
 		@Override
 		public int run(String... args) throws Exception {
-			System.out.println("Do startup logic here");
 			Quarkus.waitForExit();
 			return 0;
 		}

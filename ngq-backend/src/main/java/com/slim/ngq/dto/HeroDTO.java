@@ -1,4 +1,4 @@
-package com.slim.ngq.model;
+package com.slim.ngq.dto;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 

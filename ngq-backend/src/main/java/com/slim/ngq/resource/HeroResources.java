@@ -1,6 +1,7 @@
 package com.slim.ngq.resource;
 
 import java.util.List;
+import org.jboss.logging.Logger;
 
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
@@ -29,6 +30,8 @@ import static com.slim.ngq.utils.AuthoritiesConstants.*;
 @RequestScoped
 public class HeroResources {
 
+	private static final Logger LOGGER = Logger.getLogger(HeroResources.class);
+	
 	@Inject
 	HeroService heroService;
 
@@ -43,8 +46,10 @@ public class HeroResources {
 	@RolesAllowed({USER })
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Hero> getHeroes(@Context SecurityContext ctx) {
-		System.out.println("Name :"+jwt.getName());
-		System.out.println(ctx.isSecure());
+		LOGGER.info(">> Is Secure: "+ctx.isSecure());
+		LOGGER.info(">> JWT Name: "+jwt.getName());
+		LOGGER.info(">> Context Name: "+ctx.getUserPrincipal().getName());
+		
 		return heroService.findAllHeroes();
 	}
 

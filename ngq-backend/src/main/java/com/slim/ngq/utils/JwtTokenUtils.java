@@ -8,6 +8,11 @@ import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.wildfly.security.password.Password;
+import org.wildfly.security.password.PasswordFactory;
+import org.wildfly.security.password.interfaces.BCryptPassword;
+import org.wildfly.security.password.util.ModularCrypt;
+
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
 
@@ -66,6 +71,20 @@ public class JwtTokenUtils {
 	public static int currentTimeInSecs() {
 		long currentTimeMS = System.currentTimeMillis();
 		return (int) (currentTimeMS / 1000);
+	}
+	
+	public static  boolean verifyPassword(String originalPwd, String encryptedPwd) throws Exception {
+		// convert encrypted password string to a password key
+		Password rawPassword = ModularCrypt.decode(encryptedPwd);
+
+		// create the password factory based on the bcrypt algorithm
+		PasswordFactory factory = PasswordFactory.getInstance(BCryptPassword.ALGORITHM_BCRYPT);
+
+		// create encrypted password based on stored string
+		BCryptPassword restored = (BCryptPassword) factory.translate(rawPassword);
+
+		// verify restored password against original
+		return factory.verify(restored, originalPwd.toCharArray());
 	}
 
 }
